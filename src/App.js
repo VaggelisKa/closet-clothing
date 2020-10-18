@@ -9,6 +9,8 @@ import SigninAndSignUpPage from './pages/signin-and-signup-page/signin-and-signu
 import { auth } from './firebase/firebase.utils';
 
 class App extends React.Component {
+  unsubscribeFromAuth = null;
+
   constructor() {
     super();
 
@@ -18,7 +20,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    auth.onAuthStateChanged((user) => {
+    this.authSub$ = auth.onAuthStateChanged((user) => {
       this.setState({currentUser: user});
 
       console.log(user);
@@ -36,6 +38,10 @@ class App extends React.Component {
         </Switch>
       </div>
     );
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
   }
 }
 
