@@ -25,4 +25,10 @@ provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
+// For Facebook Auth
+const provider2 = new firebase.auth.FacebookAuthProvider();
+provider2.addScope('email');
+provider2.setCustomParameters({'display': 'popup'});
+export const signInWithFacebook = () => auth.signInWithPopup(provider2);
+
 export default firebase;

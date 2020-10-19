@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
 
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { signInWithFacebook, signInWithGoogle } from '../../firebase/firebase.utils';
 
 import { FaGoogle } from 'react-icons/fa'
 import { FaFacebookF } from 'react-icons/fa'
@@ -60,7 +60,7 @@ export class SignIn extends Component {
                     </div>
                     <div className="buttons">
                         <Button onClick={signInWithGoogle} cssClass={'google-sign-in'}><FaGoogle size="27px"/></Button>
-                        <Button onClick={signInWithGoogle} cssClass={'facebook-sign-in'}><FaFacebookF size="27px"/></Button>
+                        <Button onClick={signInWithFacebook} cssClass={'facebook-sign-in'}><FaFacebookF size="27px"/></Button>
                     </div>
                 </form>
             </div>
