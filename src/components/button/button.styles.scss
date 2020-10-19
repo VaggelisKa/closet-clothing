@@ -1,6 +1,6 @@
 .custom-button {
     min-width: 165px;
-    width: auto;
+    width: 100%;
     height: 50px;
     letter-spacing: 0.5px;
     line-height: 50px;
@@ -21,11 +21,30 @@
     }
 
     &.google-sign-in {
+      width: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background-color: #ff3e30;
       color: white;
 
       &:hover {
         background-color: darkred;
+        border: none;
+        color: white;
+      }
+    }
+
+    &.facebook-sign-in {
+      width: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #4267b2;
+      color: white;
+
+      &:hover {
+        background-color: #145ae7;
         border: none;
         color: white;
       }

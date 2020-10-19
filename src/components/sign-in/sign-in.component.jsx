@@ -5,6 +5,9 @@ import FormInput from '../form-input/form-input.component';
 
 import { signInWithGoogle } from '../../firebase/firebase.utils';
 
+import { FaGoogle } from 'react-icons/fa'
+import { FaFacebookF } from 'react-icons/fa'
+
 import './sign-in.styles.scss'
 
 export class SignIn extends Component {
@@ -52,9 +55,12 @@ export class SignIn extends Component {
                         label="password"
                         required 
                     />
-                    <div className="buttons">
+                    <div className="button">
                         <Button type="submit" value="Submit Form">Sign in</Button>
-                        <Button isGoogleSignIn={true} onClick={signInWithGoogle}>Sign in with Google</Button>
+                    </div>
+                    <div className="buttons">
+                        <Button onClick={signInWithGoogle} cssClass={'google-sign-in'}><FaGoogle size="27px"/></Button>
+                        <Button onClick={signInWithGoogle} cssClass={'facebook-sign-in'}><FaFacebookF size="27px"/></Button>
                     </div>
                 </form>
             </div>
