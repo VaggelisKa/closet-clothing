@@ -20,7 +20,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.authSub$ = auth.onAuthStateChanged(async (user) => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = await createUserProfileDocument(user);
 
@@ -36,6 +36,10 @@ class App extends React.Component {
     })
   }
 
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+
   render() {
     return (
       <div className="App">
@@ -47,10 +51,6 @@ class App extends React.Component {
         </Switch>
       </div>
     );
-  }
-
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
   }
 }
 
