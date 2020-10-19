@@ -21,7 +21,18 @@ class App extends React.Component {
 
   componentDidMount() {
     this.authSub$ = auth.onAuthStateChanged(async (user) => {
-      createUserProfileDocument(user);
+      if (user) {
+        const userRef = await createUserProfileDocument(user);
+
+        userRef.onSnapshot(snapShot => {
+          this.setState({currentUser: {
+            id: snapShot.id,
+            ...snapShot.data()
+          }});
+        });
+      } else {
+        this.setState({currentUser: null});
+      }
     })
   }
 
