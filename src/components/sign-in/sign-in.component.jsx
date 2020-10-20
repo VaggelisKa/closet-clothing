@@ -68,8 +68,8 @@ export class SignIn extends Component {
                         <Button type="submit" value="Submit Form">Sign in</Button>
                     </div>
                     <div className="buttons">
-                        <Button onClick={signInWithGoogle} cssClass={'google-sign-in'}><FaGoogle size="27px"/></Button>
-                        <Button onClick={signInWithFacebook} cssClass={'facebook-sign-in'}><FaFacebookF size="27px"/></Button>
+                        <Button type="button" onClick={signInWithGoogle} cssClass={'google-sign-in'}><FaGoogle size="27px"/></Button>
+                        <Button type="button" onClick={signInWithFacebook} cssClass={'facebook-sign-in'}><FaFacebookF size="27px"/></Button>
                     </div>
                 </form>
             </div>
