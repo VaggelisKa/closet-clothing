@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
 
-import { signInWithFacebook, signInWithGoogle } from '../../firebase/firebase.utils';
+import { signInWithFacebook, signInWithGoogle, auth } from '../../firebase/firebase.utils';
 
 import { FaGoogle } from 'react-icons/fa'
 import { FaFacebookF } from 'react-icons/fa'
@@ -20,10 +20,19 @@ export class SignIn extends Component {
         }
     }
 
-    handleOnSubmit = (event) => {
+    handleOnSubmit = async (event) => {
         event.preventDefault();
 
         this.setState({email: '', password: ''});
+
+        const {email, password} = this.state;
+
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            this.setState({email: '', password: ''});
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     handleChange = (event) => {
