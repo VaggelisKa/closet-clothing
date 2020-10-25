@@ -9,7 +9,7 @@ import { auth } from '../../firebase/firebase.utils';
 import  CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
-const Header = ({currentUser}) => {
+const Header = ({currentUser, isHidden}) => {
     return (
         <div className="header">
             <Link to="/" className="logo-container">
@@ -30,13 +30,16 @@ const Header = ({currentUser}) => {
                     <CartIcon />
                 </Link> */}
             </div>
-            <CartDropdown />
+            {
+                isHidden ? null: <CartDropdown />
+            }
         </div>
     )
 }
 
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+const mapStateToProps = ({ user: {currentUser}, cart: {isHidden} }) => ({
+    currentUser,
+    isHidden
 })
 
 export default connect(mapStateToProps)(Header);
