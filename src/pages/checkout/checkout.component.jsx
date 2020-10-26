@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
 import { createStructuredSelector } from 'reselect';
-import { toggleCartHidden } from '../../redux/cart/cart.actions';
+
+import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 
 import './checkout.styles.scss'
 
@@ -28,12 +29,12 @@ const CheckoutPage = ({ cartItems, cartTotal }) => (
         </div>
         {
             cartItems.map(item =>
-                    item.name 
+                    <CheckoutItem key={item.id} cartItem={item}/>
                 )
         }
 
         <div className="total">
-            <span>{cartTotal}€</span>
+            <span>Total: {cartTotal}€</span>
         </div>
     </div>
 );
