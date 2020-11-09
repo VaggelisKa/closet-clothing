@@ -54,7 +54,11 @@ export const convertCollectionsSnapshotToMap = collections => {
         }
     });
 
-    console.log(transformedCollection);
+    // From Object array to Object map
+    return transformedCollection.reduce((accumulator, collection)  => {
+        accumulator[collection.title.toLowerCase()] = collection;
+        return accumulator
+    }, {});
 };
 
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
