@@ -4,6 +4,7 @@ import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { checkUserSession } from './redux/user/user.actions';
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
@@ -16,21 +17,9 @@ import SigninAndSignUpPage from './pages/signin-and-signup-page/signin-and-signu
 class App extends React.Component {
 
   componentDidMount() {
-    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
-    //   if (user) {
-    //     const userRef = await createUserProfileDocument(user);
+    const { checkUserSession } = this.props;
 
-    //     userRef.onSnapshot(snapShot => {
-    //       setCurrentUser({
-    //         id: snapShot.id,
-    //         ...snapShot.data()
-    //       })
-    //     });
-    //   } else {
-    //     setCurrentUser(user);
-    //   }
-
-    // })
+    checkUserSession();
   }
 
 
@@ -53,5 +42,8 @@ const mapStateToProps = (state) => ({
   currentUser: selectCurrentUser(state)
 })
 
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession()) 
+});
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

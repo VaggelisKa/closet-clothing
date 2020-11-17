@@ -10,7 +10,8 @@ import {
     auth, 
     googleProvider, 
     facebookProvider,
-    createUserProfileDocument 
+    createUserProfileDocument,
+    getCurrentUser
 } from '../../firebase/firebase.utils';
 
 export function* getSnapshotFromUserAuth(userAuth) {
@@ -78,12 +79,32 @@ export function* onEmailSignInStart() {
     );
 }
 
+export function* isUserAuthenticated() {
+    try {
+        const user = yield getCurrentUser();
+        if (!user) return;
+
+        yield getSnapshotFromUserAuth(user);
+    } 
+    catch (error) {
+        yield put(signInFailure(error));
+    }
+}
+
+export function* onCheckUserSession() {
+    yield takeLatest(
+        userActionTypes.CHECK_USER_SESSION,
+        isUserAuthenticated
+    );
+}
+
 export function* userSagas() {
     yield all(
         [
             call(onGoogleSignInStart),
             call(onFacebookSignInStart),
-            call(onEmailSignInStart)
+            call(onEmailSignInStart),
+            call(onCheckUserSession)
         ]
     );
 }
