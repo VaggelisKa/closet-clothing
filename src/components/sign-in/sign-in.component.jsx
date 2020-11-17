@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
 
-import { signInWithFacebook, signInWithGoogle, auth } from '../../firebase/firebase.utils';
+import { auth } from '../../firebase/firebase.utils';
 
 import { FaGoogle } from 'react-icons/fa'
 import { FaFacebookF } from 'react-icons/fa'
+
+import { googleSignInStart, facebookSignInStart } from '../../redux/user/user.actions';
 
 import './sign-in.styles.scss'
 
@@ -42,6 +45,8 @@ export class SignIn extends Component {
     }
 
     render() {
+        const { googleSignInStart, facebookSignInStart } = this.props;
+
         return (
             <div className="sign-in">
                 <h2>I already have an account</h2>
@@ -68,8 +73,8 @@ export class SignIn extends Component {
                         <Button type="submit" value="Submit Form">Sign in</Button>
                     </div>
                     <div className="buttons">
-                        <Button type="button" onClick={signInWithGoogle} cssClass={'google-sign-in'}><FaGoogle size="27px"/></Button>
-                        <Button type="button" onClick={signInWithFacebook} cssClass={'facebook-sign-in'}><FaFacebookF size="27px"/></Button>
+                        <Button type="button" onClick={googleSignInStart} cssClass={'google-sign-in'}><FaGoogle size="27px"/></Button>
+                        <Button type="button" onClick={facebookSignInStart} cssClass={'facebook-sign-in'}><FaFacebookF size="27px"/></Button>
                     </div>
                 </form>
             </div>
@@ -77,4 +82,9 @@ export class SignIn extends Component {
     }
 }
 
-export default SignIn
+const mapDispatchToProps = dispatch => ({
+    googleSignInStart: () => dispatch(googleSignInStart()),
+    facebookSignInStart: () => dispatch(facebookSignInStart())
+});
+
+export default connect(null, mapDispatchToProps)(SignIn)

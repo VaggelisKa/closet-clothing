@@ -77,15 +77,15 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 // For Google Auth
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-provider.setCustomParameters({ prompt: 'select_account' });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+googleProvider.setCustomParameters({ prompt: 'select_account' });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 // For Facebook Auth
-const provider2 = new firebase.auth.FacebookAuthProvider();
-provider2.addScope('email');
-provider2.setCustomParameters({'display': 'popup'});
-export const signInWithFacebook = () => auth.signInWithPopup(provider2);
+export const facebookProvider = new firebase.auth.FacebookAuthProvider();
+facebookProvider.addScope('email');
+facebookProvider.setCustomParameters({'display': 'popup'});
+export const signInWithFacebook = () => auth.signInWithPopup(facebookProvider);
 
 export default firebase;
