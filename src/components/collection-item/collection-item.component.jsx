@@ -2,27 +2,31 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addItem }  from '../../redux/cart/cart.actions';
 
+import { Link } from 'react-router-dom';
+
 import Button from '../button/button.component';
 
 import './collection-item.styles.scss'
 
-const CollectionItem = ({item, addItem }) => {
-    const {name, price, imageUrl} = item
+const CollectionItem = ({item, addItem, title }) => {
+    const {name, price, imageUrl, id} = item
 
     return (
-        <div className="collection-item">
-            <div 
-                className="image"
-                style={{
-                    backgroundImage: `url(${imageUrl})`
-                }}
-            />
-            <div className="collection-footer">
-                <span className="name">{name}</span>
-                <span className="price">{price}€</span>
+        <Link to={`/shop/${title.toLowerCase()}/${id}`}>
+            <div className="collection-item">
+                <div 
+                    className="image"
+                    style={{
+                        backgroundImage: `url(${imageUrl})`
+                    }}
+                />
+                <div className="collection-footer">
+                    <span className="name">{name}</span>
+                    <span className="price">{price}€</span>
+                </div>
+                <Button className="custom-button" onClick={() => addItem(item)} cssClass="inverted">Add to cart</Button>
             </div>
-            <Button className="custom-button" onClick={() => addItem(item)} cssClass="inverted">Add to cart</Button>
-        </div>
+        </Link>
     )
 }
 

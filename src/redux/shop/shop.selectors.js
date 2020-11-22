@@ -28,3 +28,11 @@ export const selectCollection = memoize((collectionUrlParam) => createSelector(
     [selectShopCollections],
     collections => collections ? collections[collectionUrlParam] : null
 ));
+
+export const selectCollectionItem = memoize((collectionUrlParam, collectionItemUrlParam) => createSelector(
+    [selectShopCollections],
+    collections => collections ? 
+        collections[collectionUrlParam].items.find(item => item.id = collectionItemUrlParam) 
+        : null
+    
+));
