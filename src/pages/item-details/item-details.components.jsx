@@ -8,13 +8,19 @@ import Button from '../../components/button/button.component';
 
 import './item-details.styles.scss';
 
+import InnerImageZoom from 'react-inner-image-zoom';
+
 const ItemDetailsPage = ({item, addItem}) => {
     const { imageUrl, name, price } = item;
+    const imageProps = {
+        src: imageUrl,
+        zoomScale: 4
+    }
 
     return (
         <main className="container">
             <div className="left-column">
-                <img src={imageUrl} alt={name}/>
+            <InnerImageZoom {...imageProps} />
             </div>
             <div className="right-column">
                 <div className="product-description">
