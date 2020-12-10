@@ -1,6 +1,6 @@
 .menu-item {
-    min-width: 30%;
     height: 240px;
+    min-width: 30%;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
@@ -8,14 +8,6 @@
     border: 1px solid black;
     margin: 0 7.5px 15px;
     overflow: hidden;
-
-    @media screen and (max-width: 800px){
-      max-height: 238px;
-
-      .content {
-        width: 16vw;
-      }
-    }
 
     &:hover {
       cursor: pointer;
@@ -41,6 +33,15 @@
     &:last-child {
       margin-left: 7.5px;
     }
+
+    @media screen and (max-width: 800px){
+      max-height: 238px;
+
+      .content {
+        width: 16vw;
+      }
+    }
+
 
     .background-image {
       width: 100%;
