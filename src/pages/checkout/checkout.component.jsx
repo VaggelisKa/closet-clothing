@@ -46,4 +46,4 @@ const mapStateToProps = createStructuredSelector({
     cartTotal: selectCartTotal
 });
 
-export default connect(mapStateToProps)(CheckoutPage);
+export default React.memo(connect(mapStateToProps)(CheckoutPage));
