@@ -12,21 +12,21 @@ const CollectionItem = ({item, addItem, title }) => {
     const {name, price, imageUrl, id} = item
 
     return (
-        <Link to={`/shop/${title.toLowerCase()}/${id}`}>
-            <div className="collection-item">
+        <div className="collection-item">
+            <Link to={`/shop/${title.toLowerCase()}/${id}`} className="link">
                 <div 
                     className="image"
                     style={{
                         backgroundImage: `url(${imageUrl})`
                     }}
                 />
-                <div className="collection-footer">
-                    <span className="name">{name}</span>
-                    <span className="price">{price}€</span>
-                </div>
-                <Button className="custom-button" onClick={() => addItem(item)} cssClass="inverted">Add to cart</Button>
+            </Link>
+            <div className="collection-footer">
+                <span className="name">{name}</span>
+                <span className="price">{price}€</span>
             </div>
-        </Link>
+            <Button className="custom-button" onClick={() => addItem(item)} cssClass="inverted">Add to cart</Button>
+        </div>
     )
 }
 
