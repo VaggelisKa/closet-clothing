@@ -13,7 +13,7 @@ const ItemDetailsPageContainer = lazy(() => import('../item-details/item-details
 
 const ShopPage = ({ fetchCollections, match }) => {
     useEffect(() => {
-        fetchCollections();
+        fetchCollections()
     }, [fetchCollections]);
 
     return (

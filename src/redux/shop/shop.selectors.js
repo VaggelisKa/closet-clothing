@@ -4,10 +4,10 @@ import memoize from 'lodash.memoize';
 
 const selectShop = state => state.shop;
 
-export const selectShopCollections = createSelector(
+export const selectShopCollections = memoize(createSelector(
     [selectShop],
     shop => shop.collections
-);
+));
 
 export const selectIsCollectionFetching = createSelector(
     [selectShop],
