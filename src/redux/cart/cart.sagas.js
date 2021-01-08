@@ -8,61 +8,60 @@ import { selectCartItems } from './cart.selectors';
 import { clearCart, setCartFromFirebase } from './cart.actions';
 
 export function* clearCartOnSignOut() {
-    yield put(clearCart());
+  yield put(clearCart());
 }
 
 export function* updateCartInFirebase() {
-    const currentUser = yield select(selectCurrentUser);
-    if (currentUser) {
-        try {
-            const cartRef = yield getUserCartRef(currentUser.id);
-            const cartItems = yield select(selectCartItems);
+  const currentUser = yield select(selectCurrentUser);
+  if (currentUser) {
+    try {
+      const cartRef = yield getUserCartRef(currentUser.id);
+      const cartItems = yield select(selectCartItems);
 
-            yield cartRef.update({ cartItems });
-        } catch (error) {
-            console.log(error);
-        }
+      yield cartRef.update({ cartItems });
+    } catch (error) {
+      // console.log(error);
     }
+  }
 }
 
 export function* checkCartFromFirebase({ payload: user }) {
-    const cartRef = yield getUserCartRef(user.id)
-    const cartSnapshot = yield cartRef.get();
-    yield put(setCartFromFirebase(cartSnapshot.data().cartItems))
+  const cartRef = yield getUserCartRef(user.id);
+  const cartSnapshot = yield cartRef.get();
+  yield put(setCartFromFirebase(cartSnapshot.data().cartItems));
 }
 
 export function* onSignInSuccess() {
-    yield takeLatest(
-        userActionTypes.SIGN_IN_SUCCESS,
-        checkCartFromFirebase
-    );
+  yield takeLatest(
+    userActionTypes.SIGN_IN_SUCCESS,
+    checkCartFromFirebase
+  );
 }
 
-
 export function* onSignOutSuccess() {
-    yield takeLatest(
-        userActionTypes.SIGN_OUT_SUCCESS,
-        clearCartOnSignOut
-    );
+  yield takeLatest(
+    userActionTypes.SIGN_OUT_SUCCESS,
+    clearCartOnSignOut
+  );
 }
 
 export function* onCartChange() {
-    yield takeLatest(
-        [
-            CartActionTypes.ADD_ITEM,
-            CartActionTypes.REMOVE_ITEM_FROM_CART,
-            CartActionTypes.CLEAR_CART
-        ],
-        updateCartInFirebase
-    )
+  yield takeLatest(
+    [
+      CartActionTypes.ADD_ITEM,
+      CartActionTypes.REMOVE_ITEM_FROM_CART,
+      CartActionTypes.CLEAR_CART
+    ],
+    updateCartInFirebase
+  );
 }
 
 export function* cartSagas() {
-    yield all(
-        [
-            call(onSignOutSuccess),
-            call(onCartChange),
-            call(onSignInSuccess)
-        ]
-    );
+  yield all(
+    [
+      call(onSignOutSuccess),
+      call(onCartChange),
+      call(onSignInSuccess)
+    ]
+  );
 }

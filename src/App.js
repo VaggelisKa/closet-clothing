@@ -1,11 +1,11 @@
+/* eslint-disable react/jsx-filename-extension */
 import React, { lazy, useEffect, Suspense } from 'react';
-
-import { GlobalStyle } from './global.styles';
 
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
+import { GlobalStyle } from './global.styles';
 
 import Header from './components/header/header.component';
 import Spinner from './components/spinner/spinner.component';
@@ -30,21 +30,21 @@ const App = ({ checkUserSession, currentUser }) => {
           <Suspense fallback={<Spinner />}>
             <Route exact path="/" component={HomePage} />
             <Route path="/shop" component={ShopPage} />
-            <Route exact path="/signin" render={() => currentUser ? (<Redirect to='/' />) : (<SigninAndSignUpPage />)} />
+            <Route exact path="/signin" render={() => currentUser ? (<Redirect to="/" />) : (<SigninAndSignUpPage />)} />
             <Route exact path="/checkout" component={CheckoutPage} />
           </Suspense>
         </ErrorBoundary>
       </Switch>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   currentUser: selectCurrentUser(state)
-})
+});
 
 const mapDispatchToProps = dispatch => ({
-  checkUserSession: () => dispatch(checkUserSession()) 
+  checkUserSession: () => dispatch(checkUserSession())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
